@@ -18,3 +18,5 @@ public class BinarySearch{
         System.out.println("Element is Found at " + (len+1) + " Position." );
     }
 }
+// Space Complexity : O(log n)
+// Time Complexity : O(log n)
