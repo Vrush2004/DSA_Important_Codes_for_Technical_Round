@@ -5,7 +5,7 @@
 // arr ={2,2,6,6,6,2,2,8,2,2}
 // Sample output = 2
 // time complexity = 0(n)
-// space complexity = 0(n)
+// space complexity = 0(1)
 
 package DSA_Imp.Arrays;
 
