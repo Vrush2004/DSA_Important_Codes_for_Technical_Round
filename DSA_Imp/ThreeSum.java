@@ -5,7 +5,7 @@
 // target=0
 // sample output = [-11,3,8],[-6,-1,7]
 // Time complexity = O(n^2) 
-// Space complexity = O(n)+O(m)
+// Space complexity = O(1)
 
 package DSA_Imp;
 import java.util.*;
