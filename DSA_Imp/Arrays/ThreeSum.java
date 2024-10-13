@@ -7,7 +7,7 @@
 // Time complexity = O(n^2) 
 // Space complexity = O(1)
 
-package DSA_Imp;
+package DSA_Imp.Arrays;
 import java.util.*;
 
 public class ThreeSum{

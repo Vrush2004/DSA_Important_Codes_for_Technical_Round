@@ -5,7 +5,7 @@
 // Time complexity= 0(log2n)
 // space complexity= O(1)
 
-package DSA_Imp;
+package DSA_Imp.Arrays;
 import java.util.*;
 
 public class SmallestNum {
