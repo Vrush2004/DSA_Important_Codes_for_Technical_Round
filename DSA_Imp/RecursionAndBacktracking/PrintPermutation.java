@@ -8,8 +8,8 @@
 // 2 3 1
 // 3 1 2
 // 3 2 1
-// time complexity = 0(log2 n)
-// space complexity = 0(1)
+// time complexity = 0(n!*n)
+// space complexity = 0(n)
 
 package DSA_Imp.RecursionAndBacktracking;
 
