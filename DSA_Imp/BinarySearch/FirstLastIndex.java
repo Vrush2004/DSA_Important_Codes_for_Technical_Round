@@ -4,6 +4,8 @@
 // arr={2,3,3,4,5,5,5,5,8}
 // target = 5
 // sample output = 4 8
+// time complexity = 0(log2 n)
+// space complexity = 0(1)
 
 package DSA_Imp.BinarySearch;
 
