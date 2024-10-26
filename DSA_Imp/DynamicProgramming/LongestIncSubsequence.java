@@ -3,7 +3,7 @@
 // arr = {10,2,9,5,7,3,60,80,1}
 // Sample output = 5
 // Time complexity = O(n^2)
-// space complexity = O(n^2)
+// space complexity = O(n)
 
 package DSA_Imp.DynamicProgramming;
 
@@ -12,6 +12,43 @@ public class LongestIncSubsequence {
         int[] arr = {10, 2,9,5,7,3,60,80,1};
         // int[] arr = {5,4,3,2,1};
         System.out.println(lis(arr, 0, -1, new int[arr.length][arr.length]));
+        int ans = 0;
+        for (int i=0; i<arr.length; i++){
+            int len = lis2(arr, i);
+            ans = Math.max(ans, len);
+        }
+        System.out.println(ans);
+        System.out.println(lisTab(arr));
+    }
+
+    // Memorization
+    public static int lis2(int[] arr, int i){
+        int max= 0;
+        for (int j = 0; j<i; j++){
+            if(arr[j] < arr[i]){
+                max = Math.max(max, lis2(arr,j));
+            }
+        }
+        return max +1;
+    }
+
+    // Tabulation
+    public static int lisTab(int[] arr){
+        int[] dp = new int[arr.length];
+        dp[0] = 1;
+        int ans = 0;
+
+        for(int i=1; i<arr.length; i++){
+            int max =0;
+            for(int j =0; j<i; j++){
+                if(arr[j] < arr[i]){
+                    max = Math.max(max, dp[j]);
+                }
+            }
+            dp[i] = max + 1;
+            ans = Math.max(ans, dp[i]);
+        }
+        return ans;
     }
 
     public static int lis(int[] arr, int idx, int psidx, int[][] dp){
