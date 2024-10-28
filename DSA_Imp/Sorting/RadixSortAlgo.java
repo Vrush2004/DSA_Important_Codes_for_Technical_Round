@@ -6,7 +6,7 @@ package DSA_Imp.Sorting;
 
 public class RadixSortAlgo {
     public static void main(String[] args){
-        int [] arr = {6,8,1,3,1,4,9,1,2,8,8,7};
+        int [] arr = {879, 645, 80, 345, 108, 254, 789, 657};
         radixSort(arr);
         for(int val : arr){
             System.out.print(val + " ");
@@ -27,26 +27,32 @@ public class RadixSortAlgo {
         }
     }
 
-    public static int[] countSort(int[] arr, int exp){
+    public static void countSort(int[] arr, int exp){
         int n = arr.length;
         int[] p = new int[10];
-        
-        // 1.create the frequency array
+
+        // 1. Create the frequency array
         for (int i=0; i<n; i++){
-            p[arr[i]]++;
-        }
-        // 2.convert the arr into prefixsum arr
-        for(int i =1 ; i<p.length; i++){
-            p[i] = p[i-1] + p[i];
-        }
-        // 3.traverse on the original array and try to update ans[]
-        int[] ans = new int[n];
-        for(int i=n-1; i>=0; i--){
-            int pos = p[arr[i]];
-            ans[pos-1] = arr[i];
-            p[arr[i]]--;
+            p[(arr[i] / exp) % 10]++;
         }
 
-        return ans;
+        // 2. Convert the p array into prefix sum array
+        for(int i=1; i<p.length; i++){
+            p[i] += p[i-1];
+        }
+
+        // 3. Traverse on the original array and update ans[]
+        int[] ans = new int[n];
+        for(int i=n-1; i>=0; i--){
+            int digit = (arr[i] / exp) % 10;
+            int pos = p[digit] - 1;
+            ans[pos] = arr[i];
+            p[digit]--;
+        }
+
+        // Copy ans into the original array
+        for(int i=0; i<ans.length; i++){
+            arr[i] = ans[i];
+        }
     }
 }
