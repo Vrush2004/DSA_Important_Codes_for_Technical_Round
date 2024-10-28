@@ -5,8 +5,8 @@
 // A={-1,4,3,-2}, k=3
 // Sample output
 // 15
-// Time complexity = O(n*k)
-// space complexity = O(n*k)
+// Time complexity = O(n)
+// space complexity = O(1)
 
 package DSA_Imp.DynamicProgramming;
 
@@ -16,7 +16,7 @@ public class KConcatenation {
         System.out.println(maxSum(arr, 3));
     }
 
-    public static int main(int[] arr, int k){
+    public static int maxSum(int[] arr, int k){
         if(k == 1){
             return kadanes(arr, 1);
         }else{
@@ -36,8 +36,8 @@ public class KConcatenation {
         int currSum =0;
         int maxSum = Integer.MIN_VALUE;
 
-        for (int i = 0; i< arr.length; i++){
-            currSum = Math.max(currSum+arr[i], arr[i]);
+        for (int i = 0; i< arr.length * c; i++){
+            currSum = Math.max(currSum + arr[i % arr.length], arr[i % arr.length]);
             maxSum = Math.max(maxSum, currSum);
         }
         return maxSum;
