@@ -3,6 +3,8 @@
 // arr ={0,1,1,0,2,1,0,2,0,2,1}
 // Sample output
 // arr = {0,0,0,0,1,1,1,1,2,2,2}
+// time complexity = 0(n)
+// space complexity = 0(1)
 
 package DSA_Imp.Sorting;
 
@@ -11,7 +13,7 @@ public class Sort012 {
         int[] arr = {1,1,0,2,1,0,2,1,0,2,1,0,1};
         sort(arr);
         for (int val : arr){
-            System.out.println(val + " ");
+            System.out.print(val + " ");
         }
     }
 
