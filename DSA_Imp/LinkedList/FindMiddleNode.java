@@ -21,29 +21,21 @@ class ListNode{
 
 public class FindMiddleNode {
     public static void main(String[] args){
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Enter the number of nodes:");
-        int n = scanner.nextInt();
-
-        if (n <= 0) {
-            System.out.println("Linked list is empty.");
-            return;
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+        ListNode head = new ListNode(scn.nextInt());
+        ListNode temp = head;
+        ListNode temp1 = head, temp2 = head;
+        while(n-- > 1){
+            temp.next = new ListNode(scn.nextInt());
+            temp = temp.next;
+            if(n==4){
+                temp1 = temp;
+            }
+            temp2 = temp;
         }
-
-        System.out.println("Enter the values of the nodes:");
-        ListNode head = new ListNode(scanner.nextInt());
-        ListNode current = head;
-
-        for (int i = 1; i < n; i++) {
-            current.next = new ListNode(scanner.nextInt());
-            current = current.next;
-        }
-
-        int middleValue = middleNode(head);
-        System.out.println("The middle node value is: " + middleValue);
-
-        scanner.close();
+        temp2.next = temp1;
+        System.out.println(middleNode(head));
     }
 
     public static int middleNode(ListNode head){
