@@ -6,9 +6,30 @@
 // Space complexity = O(n)
 
 package DSA_Imp.HashMap;
+import java.util.*;
 
 public class LongestSubArrWithSumDivByK {
     public static void main(String[] args){
-        
+        int[] arr = {2, 4, 8, 1, 3, 6, 2, 9, 3, 11};
+        System.out.println(longSubarray(arr,5));
+    }
+
+    public static int longSubarray(int[] arr, int k){
+        HashMap<Integer, Integer> map = new HashMap<>();
+        map.put(0, -1);
+        int sum = 0;
+        int maxlen = 0;
+
+        for(int i=0; i<arr.length; i++){
+            sum += arr[i];
+            int mod = ((sum % k) + k) % k;
+
+            if(map.containsKey(mod) == true){
+                maxlen = Math.max(maxlen, i-map.get(mod));
+            }else{
+                map.put(mod, i);
+            }
+        }
+        return maxlen;
     }
 }
