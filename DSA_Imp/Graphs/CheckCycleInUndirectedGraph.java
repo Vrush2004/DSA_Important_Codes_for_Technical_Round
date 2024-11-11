@@ -52,4 +52,75 @@ public class CheckCycleInUndirectedGraph {
         }
         System.out.println("Cycle detected: " + hasCycle);
     }
+
+    // Helper method to add an undirected edge
+    public static void addEdge(ArrayList<Integer>[] graph, int u, int v) {
+        graph[u].add(v);
+        graph[v].add(u);
+    }
+
+    // DFS method
+    public static void dfs(ArrayList<Integer>[] graph, int src, boolean[] visited) {
+        visited[src] = true;
+        System.out.print(src + " ");
+        for (int neighbor : graph[src]) {
+            if (!visited[neighbor]) {
+                dfs(graph, neighbor, visited);
+            }
+        }
+    }
+
+    // BFS method
+    public static void bfs(ArrayList<Integer>[] graph, int src, boolean[] visited) {
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(src);
+        visited[src] = true;
+
+        while (!queue.isEmpty()) {
+            int node = queue.poll();
+            System.out.print(node + " ");
+            for (int neighbor : graph[node]) {
+                if (!visited[neighbor]) {
+                    visited[neighbor] = true;
+                    queue.add(neighbor);
+                }
+            }
+        }
+    }
+
+    // Cycle detection using DFS for an undirected graph
+    public static boolean isCyclic(ArrayList<Integer>[] graph, int src, boolean[] visited, int parent) {
+        visited[src] = true;
+        for (int neighbor : graph[src]) {
+            if (!visited[neighbor]) {
+                if (isCyclic(graph, neighbor, visited, src)) {
+                    return true;
+                }
+            } else if (neighbor != parent) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isCyclicBfs(ArrayList<Integer>[] graph, int src, boolean[] visited) {
+        Queue<Pair> q = new ArrayDeque<>();
+        q.add(new Pair(src, -1));
+        visited[src] = true;
+
+        while (q.size() > 0) {
+            Pair rp = q.remove();
+            for(int nbr : graph[rp.vtx]){
+                if(nbr == rp.parent){
+                    if(visited[nbr] == true){
+                        // we are visiting an already visited vertex
+                        return true;
+                    }
+                    visited[nbr] = true;
+                    q.add(new Pair(nbr, rp.vtx));
+                }
+            }
+        }
+        return false;
+    }
 }
