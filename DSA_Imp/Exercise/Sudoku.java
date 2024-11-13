@@ -60,4 +60,43 @@ public class Sudoku {
         
         return true;
     }
+
+    // Main method to test the Sudoku solver
+    public static void main(String[] args) {
+        ArrayList<ArrayList<Character>> board = new ArrayList<>();
+
+        // Initialize the board with a sample puzzle
+        char[][] initialBoard = {
+            {'5', '3', '.', '.', '7', '.', '.', '.', '.'},
+            {'6', '.', '.', '1', '9', '5', '.', '.', '.'},
+            {'.', '9', '8', '.', '.', '.', '.', '6', '.'},
+            {'8', '.', '.', '.', '6', '.', '.', '.', '3'},
+            {'4', '.', '.', '8', '.', '3', '.', '.', '1'},
+            {'7', '.', '.', '.', '2', '.', '.', '.', '6'},
+            {'.', '6', '.', '.', '.', '.', '2', '8', '.'},
+            {'.', '.', '.', '4', '1', '9', '.', '.', '5'},
+            {'.', '.', '.', '.', '8', '.', '.', '7', '9'}
+        };
+
+        // Convert initialBoard to ArrayList<ArrayList<Character>>
+        for (char[] row : initialBoard) {
+            ArrayList<Character> boardRow = new ArrayList<>();
+            for (char c : row) {
+                boardRow.add(c);
+            }
+            board.add(boardRow);
+        }
+
+        // Solve the Sudoku puzzle
+        Sudoku sudokuSolver = new Sudoku();
+        sudokuSolver.solveSudoku(board);
+
+        // Print the solved board
+        for (ArrayList<Character> row : board) {
+            for (char c : row) {
+                System.out.print(c + " ");
+            }
+            System.out.println();
+        }
+    }
 }
