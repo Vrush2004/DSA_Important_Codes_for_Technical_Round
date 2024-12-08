@@ -66,4 +66,54 @@ listnode* mergeKLists(listnode** A, int n1) {
 
     return head;  // Return the head of the merged sorted list
 }
+
+// Function to print a linked list
+void printList(listnode* head) {
+    while (head != NULL) {
+        cout << head->val << " -> ";
+        head = head->next;
+    }
+    cout << "NULL" << endl;
+}
+
+// Helper function to create a new linked list node
+listnode* listnode_new(int val) {
+    listnode* node = new listnode();
+    node->val = val;
+    node->next = NULL;
+    return node;
+}
+
+int main() {
+    // Example 1:
+    listnode* list1 = listnode_new(1);
+    list1->next = listnode_new(10);
+    list1->next->next = listnode_new(20);
+
+    listnode* list2 = listnode_new(4);
+    list2->next = listnode_new(11);
+    list2->next->next = listnode_new(13);
+
+    listnode* list3 = listnode_new(3);
+    list3->next = listnode_new(8);
+    list3->next->next = listnode_new(9);
+
+    listnode* lists[] = {list1, list2, list3};
+    listnode* result = mergeKLists(lists, 3);
+    printList(result);
+
+    // Example 2:
+    listnode* list4 = listnode_new(10);
+    list4->next = listnode_new(12);
+
+    listnode* list5 = listnode_new(13);
+
+    listnode* list6 = listnode_new(5);
+    list6->next = listnode_new(6);
+
+    listnode* lists2[] = {list4, list5, list6};
+    listnode* result2 = mergeKLists(lists2, 3);
+    printList(result2);
+
+    return 0;
 }
