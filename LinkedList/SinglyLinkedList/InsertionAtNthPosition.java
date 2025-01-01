@@ -48,4 +48,40 @@ public class InsertionAtNthPosition {
                 temp.next = newNode;
             }
         }
+    
+        public void display()
+        {
+            Node node = head;
+            //as linked list will end when Node reaches Null
+            while(node!=null)
+            {
+                System.out.print(node.data + " ");
+                node = node.next;
+            }
+            System.out.println();
+        }
+    
+        public int calcSize(Node node){
+            int size = 0;
+            while(node!=null){
+                node = node.next;
+                size++;
+            }
+            return size;
+        }
+        
+        public static void main(String args[])
+        {
+            InsertionAtNthPosition listObj = new InsertionAtNthPosition();
+    
+            listObj.insertBeginning(15);
+            listObj.insertBeginning(10);
+          
+            listObj.display();
+    
+            listObj.insertAfter(1,100);
+            listObj.insertAfter(2,200);
+    
+            listObj.display();
+        }
 }
