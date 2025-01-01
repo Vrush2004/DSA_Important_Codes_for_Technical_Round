@@ -36,9 +36,7 @@ class InsertionAtBegining {
         }
         System.out.println();
     }
-}
-public class Main
-{
+
     public static void main(String args[])
     {
         InsertionAtBegining ll = new InsertionAtBegining();
