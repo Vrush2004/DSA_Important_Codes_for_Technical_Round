@@ -50,4 +50,49 @@ public class DeletionAtNthPosition {
             System.out.println("Deleted: " + temp.data);
         }
     }
+    public void insert(int data)
+    {
+        Node newNode = new Node(data);
+        newNode.next = head;
+        head = newNode;
+    }
+
+    public void showList()
+    {
+        Node temp = head;
+        //as linked list will end when Node reaches Null
+        while(temp!=null)
+        {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+        System.out.println("\n");
+    }
+
+    public int calcLen(Node temp){
+        int len = 0;
+
+        while(temp!=null){
+            temp = temp.next;
+            len++;
+        }
+        return len;
+    }
+    public static void main(String args[])
+    {
+        DeletionAtNthPosition ll = new DeletionAtNthPosition();
+
+        ll.insert(35);
+        ll.insert(34);
+        ll.insert(33);
+        ll.insert(32);
+        ll.insert(31);
+        ll.insert(30);
+
+        ll.showList();
+
+        ll.deleteNthNode(3);
+        ll.deleteNthNode(4);
+        ll.showList();
+    }
 }
