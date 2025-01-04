@@ -49,4 +49,63 @@ public class DeleteAlternateNode {
           }
           System.out.println ("END");
     }
+
+    // Function to add a node in beginning of linked list
+    public void addFirst (int item)
+    {
+          // Create a temp node which points to head
+          Node temp = new Node (item, head);
+          // If linked list is empty, temp is the head and tail node both
+          if (this.size == 0)
+          {
+              this.head = this.tail = temp;
+          }
+          // else set the head such that it now points to temp node
+          else
+          {
+              this.head = temp;
+          }
+          this.size++;
+    }
+
+    public void deleteAlternateNodes ()
+    {
+      this.deleteAlternateNodes (this.head);
+    }
+
+    //Function to delete alternate nodes in linked list
+    private void deleteAlternateNodes (Node node)
+    {
+        //Base case
+        if (node == null)
+        {
+            return;
+        }
+        Node nm1 = this.head;
+        Node n = nm1.next;
+        while (nm1 != null && n != null)
+        {
+            nm1.next = n.next;
+            nm1 = n.next;
+            if (nm1 != null)
+            {
+                n = nm1.next;
+            }
+        }
+    }
+
+    public static void main (String[]args) throws Exception
+    {
+      DeleteAlternateNode ll = new DeleteAlternateNode ();
+        ll.addFirst (70);
+        ll.addFirst (60);
+        ll.addFirst (50);
+        ll.addFirst (40);
+        ll.addFirst (30);
+        ll.addFirst (20);
+        ll.addFirst (10);
+        ll.display ();
+        ll.deleteAlternateNodes ();
+        ll.display ();
+    }
 }
