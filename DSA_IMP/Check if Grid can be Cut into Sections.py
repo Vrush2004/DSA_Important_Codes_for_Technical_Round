@@ -1,52 +1,31 @@
 # Input: n = 5, rectangles = [[1,0,5,2],[0,2,2,4],[3,2,5,3],[0,4,4,5]]
 # Output: true
 
-from typing import List
-
 class Solution:
-    def checkValidCuts(self, n: int, rectangles: List[List[int]]) -> bool:
-        # Collect unique x and y coordinates
-        x_coords = set()
-        y_coords = set()
+    def checkValidCuts(self, n: int, rectangles: list[list[int]]) -> bool:
+        # Check if valid cuts can be made in a specific dimension
+        def _check_cuts(rectangles: list[list[int]], dim: int) -> bool:
+            gap_count = 0
 
-        for x1, y1, x2, y2 in rectangles:
-            x_coords.add(x1)
-            x_coords.add(x2)
-            y_coords.add(y1)
-            y_coords.add(y2)
+            # Sort rectangles by their starting coordinate in the given dimension
+            rectangles.sort(key=lambda rect: rect[dim])
 
-        x_sorted = sorted(x_coords)
-        y_sorted = sorted(y_coords)
+            # Track the furthest ending coordinate seen so far
+            furthest_end = rectangles[0][dim + 2]
 
-        # Check vertical and horizontal cuts
-        return self.canMakeTwoValidCuts(rectangles, x_sorted, vertical=True) or \
-               self.canMakeTwoValidCuts(rectangles, y_sorted, vertical=False)
+            for i in range(1, len(rectangles)):
+                rect = rectangles[i]
 
-    def canMakeTwoValidCuts(self, rectangles: List[List[int]], cut_points: List[int], vertical: bool) -> bool:
-        """
-        Checks if two valid cuts can be made based on x or y coordinates.
-        """
-        for i in range(1, len(cut_points) - 1):  # First cut
-            for j in range(i + 1, len(cut_points) - 1):  # Second cut
-                cut1, cut2 = cut_points[i], cut_points[j]
-                section = [0, 0, 0]  # Track how many rectangles exist in each section
-                valid = True
+                # If current rectangle starts after the furthest end we've seen,
+                # we found a gap where a cut can be made
+                if furthest_end <= rect[dim]:
+                    gap_count += 1
 
-                for rect in rectangles:
-                    start, end = (rect[0], rect[2]) if vertical else (rect[1], rect[3])
+                # Update the furthest ending coordinate
+                furthest_end = max(furthest_end, rect[dim + 2])
 
-                    # Determine which section this rectangle belongs to
-                    if end <= cut1:
-                        section[0] += 1
-                    elif start >= cut2:
-                        section[2] += 1
-                    elif start >= cut1 and end <= cut2:
-                        section[1] += 1
-                    else:
-                        valid = False  # Rectangle crosses a cut
-                        break
+            # We need at least 2 gaps to create 3 sections
+            return gap_count >= 2
 
-                if valid and all(s > 0 for s in section):  # Each section must have at least 1 rectangle
-                    return True
-
-        return False
+        # Try both horizontal and vertical cuts
+        return _check_cuts(rectangles, 0) or _check_cuts(rectangles, 1)
