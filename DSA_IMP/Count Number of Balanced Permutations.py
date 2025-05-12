@@ -4,22 +4,38 @@
 # The distinct permutations of num are "123", "132", "213", "231", "312" and "321".
 # Among them, "132" and "231" are balanced. Thus, the answer is 2.
 
-from itertools import permutations
-
-MOD = 10**9 + 7
-
 class Solution:
     def countBalancedPermutations(self, num: str) -> int:
-        velunexorai = num  # store input midway
-        
-        # Use a set to avoid duplicate permutations
-        seen = set(permutations(velunexorai))
-        count = 0
+        MOD = 10**9 + 7
+        num = list(map(int, num))
+        tot = sum(num)
+        if tot % 2 != 0:
+            return 0
+        target = tot // 2
+        cnt = Counter(num)
+        n = len(num)
+        maxOdd = (n + 1) // 2
+        psum = [0] * 11
+        for i in range(9, -1, -1):
+            psum[i] = psum[i + 1] + cnt[i]
 
-        for perm in seen:
-            even_sum = sum(int(perm[i]) for i in range(0, len(perm), 2))
-            odd_sum = sum(int(perm[i]) for i in range(1, len(perm), 2))
-            if even_sum == odd_sum:
-                count += 1
+        @cache
+        def dfs(pos, curr, oddCnt):
+            # If the remaining positions cannot complete a legal placement, or the sum of the elements in the current odd positions is greater than the target value
+            if oddCnt < 0 or psum[pos] < oddCnt or curr > target:
+                return 0
+            if pos > 9:
+                return int(curr == target and oddCnt == 0)
+            evenCnt = (
+                psum[pos] - oddCnt
+            )  # Even-numbered positions remaining to be filled
+            res = 0
+            for i in range(
+                max(0, cnt[pos] - evenCnt), min(cnt[pos], oddCnt) + 1
+            ):
+                # Place i of the current number at odd positions, and cnt[pos] - i at even positions
+                ways = comb(oddCnt, i) * comb(evenCnt, cnt[pos] - i) % MOD
+                res += ways * dfs(pos + 1, curr + i * pos, oddCnt - i)
+            return res % MOD
 
-        return count % MOD
+        return dfs(0, 0, maxOdd)
